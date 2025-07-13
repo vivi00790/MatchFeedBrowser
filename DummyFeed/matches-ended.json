@@ -1,0 +1,37 @@
+[
+  {
+    "id": 101,
+    "game": "Valorant",
+    "teams": ["Team Alpha", "Team Omega"],
+    "startTime": "2025-06-20T17:00:00Z",
+    "status": "ended",
+    "stage": "Group Stage",
+    "tournament": "VCT Masters 2025",
+    "streamUrl": "https://twitch.tv/vct",
+    "score": {
+      "Team Alpha": 2,
+      "Team Omega": 0
+    },
+    "mapScores": [
+      {
+        "map": "Ascent",
+        "score": {
+          "Team Alpha": 13,
+          "Team Omega": 9
+        }
+      },
+      {
+        "map": "Bind",
+        "score": {
+          "Team Alpha": 13,
+          "Team Omega": 8
+        }
+      }
+    ],
+    "winner": "Team Alpha",
+    "matchDetails": {
+      "format": "Best of 3",
+      "mapPool": ["Ascent", "Bind", "Haven"]
+    }
+  }
+]
