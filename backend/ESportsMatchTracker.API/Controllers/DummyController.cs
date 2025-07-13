@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESportsMatchTracker.API.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class DummyController : ControllerBase
 {
     private readonly IWebHostEnvironment _env;
@@ -14,13 +16,12 @@ public class DummyController : ControllerBase
 
     private async Task<IActionResult> ReturnJsonFileAsync(string fileName)
     {
-        var path = Path.Combine(_env.ContentRootPath, "Data", fileName);
+        var path = Path.Combine(_env.ContentRootPath, "DummyData", fileName);
         if (!System.IO.File.Exists(path))
-            return NotFound("File not found.");
+            return NotFound($"File {fileName} not found.");
 
         var json = await System.IO.File.ReadAllTextAsync(path);
-        var parsed = JsonDocument.Parse(json);
-        return Ok(parsed.RootElement);
+        return Ok(json);
     }
 
     [HttpGet("scheduled")]
