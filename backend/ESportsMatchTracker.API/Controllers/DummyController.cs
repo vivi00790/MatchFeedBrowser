@@ -21,7 +21,7 @@ public class DummyController : ControllerBase
             return NotFound($"File {fileName} not found.");
 
         var json = await System.IO.File.ReadAllTextAsync(path);
-        return Ok(json);
+        return Content(json, "application/json");
     }
 
     [HttpGet("scheduled")]
