@@ -12,5 +12,19 @@
       "format": "Best of 3",
       "mapPool": ["Ascent", "Bind", "Haven"]
     }
+  },
+  {
+    "id": 102,
+    "game": "CS:GO",
+    "teams": ["Team Eagle", "Team Whiskey"],
+    "startTime": "2025-06-23T17:00:00Z",
+    "status": "scheduled",
+    "stage": "Group Stage",
+    "tournament": "Global Tour 2025",
+    "streamUrl": "https://steamurl.com",
+    "matchDetails": {
+      "format": "Best of 3",
+      "mapPool": ["Dust2", "Warehouse", "Aztek"]
+    }
   }
 ]

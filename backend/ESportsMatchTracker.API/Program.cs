@@ -21,9 +21,10 @@ builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
 
 builder.Services.AddMemoryCache();
 
+// All services registered as interfaces, so that we can easily mock them in unit tests.
 builder.Services.AddScoped<IMatchService, MatchService>();
 // Register the proxy for fetching matches from a dummy server and separate data fetching logic and data processing logic.
-builder.Services.AddScoped<IDummyMatchProxy, DummyDummyMatchProxy>();
+builder.Services.AddScoped<IDummyMatchProxy, DummyMatchProxy>();
 // Decorate the IMatchService with caching, instead of inject caching logic in MatchService directly.
 builder.Services.Decorate<IMatchService, MatchServiceCache>();
 
