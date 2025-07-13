@@ -1,3 +1,4 @@
+using ESportsMatchTracker.API.Decorators;
 using ESportsMatchTracker.API.Proxies;
 using ESportsMatchTracker.API.Services;
 
@@ -14,8 +15,14 @@ builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
 {
     client.BaseAddress = new Uri("http://localhost:5105");
 });
+
+builder.Services.AddMemoryCache();
+
 builder.Services.AddScoped<IMatchService, MatchService>();
+// Register the proxy for fetching matches from a dummy server and separate data fetching logic and data processing logic.
 builder.Services.AddScoped<IDummyMatchProxy, DummyDummyMatchProxy>();
+// Decorate the IMatchService with caching, instead of inject caching logic in MatchService directly.
+builder.Services.Decorate<IMatchService, MatchServiceCache>();
 
 // A demo for the scenario that different status matches are fetched from different servers.
 builder.Services.AddHttpClient("DummyMatchClient:Scheduled", client =>

@@ -7,20 +7,13 @@ namespace ESportsMatchTracker.API.Services;
 
 public interface IMatchService
 {
-    Task<List<MatchInfo>> FetchMatchesAsync(MatchStatus status);
+    Task<List<T>> FetchMatchesAsync<T>(MatchStatus status) where T : class;
 }
 
 public class MatchService(IDummyMatchProxy dummyMatchProxy) : IMatchService
 {
-    public async Task<List<MatchInfo>> FetchMatchesAsync(MatchStatus status)
+    public async Task<List<T>> FetchMatchesAsync<T>(MatchStatus status) where T : class
     {
-        return status switch
-        {
-            //TODO: use different model for different match status
-            MatchStatus.Scheduled => await dummyMatchProxy.FetchMatchesAsync<MatchInfo>(status),
-            MatchStatus.Live => await dummyMatchProxy.FetchMatchesAsync<MatchInfo>(status),
-            MatchStatus.Ended => await dummyMatchProxy.FetchMatchesAsync<MatchInfo>(status),
-            _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
-        };
+        return await dummyMatchProxy.FetchMatchesAsync<T>(status);
     }
 }

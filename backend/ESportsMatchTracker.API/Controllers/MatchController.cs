@@ -1,4 +1,5 @@
 ﻿using ESportsMatchTracker.API.Enums;
+using ESportsMatchTracker.API.Models;
 using ESportsMatchTracker.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +14,13 @@ public class MatchController(IMatchService matchService) : ControllerBase
     {
         try
         {
-            var matches = await matchService.FetchMatchesAsync(status);
-            return Ok(matches);
+            return status switch
+            {
+                MatchStatus.Scheduled => Ok(await matchService.FetchMatchesAsync<ScheduledMatchInfo>(status)),
+                MatchStatus.Live => Ok(await matchService.FetchMatchesAsync<LiveMatchInfo>(status)),
+                MatchStatus.Ended => Ok(await matchService.FetchMatchesAsync<EndedMatchInfo>(status)),
+                _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+            };
         }
         catch (ArgumentException ex)
         {
