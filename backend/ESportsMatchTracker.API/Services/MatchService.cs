@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using ESportsMatchTracker.API.Enums;
-using ESportsMatchTracker.API.Models;
+﻿using ESportsMatchTracker.API.Enums;
 using ESportsMatchTracker.API.Proxies;
 
 namespace ESportsMatchTracker.API.Services;

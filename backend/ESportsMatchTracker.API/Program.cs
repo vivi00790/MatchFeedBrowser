@@ -1,6 +1,9 @@
+using ESportsMatchTracker.API.DbContexts;
 using ESportsMatchTracker.API.Decorators;
+using ESportsMatchTracker.API.MiddleWares;
 using ESportsMatchTracker.API.Proxies;
 using ESportsMatchTracker.API.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +41,11 @@ builder.Services.AddHttpClient("DummyMatchClient:Ended", client =>
     client.BaseAddress = new Uri("http://localhost:5105");
 });
 
+builder.Services.AddDbContext<LoggingDbContext>(options =>
+    options.UseSqlite("Data Source=log.db"));
+
 var app = builder.Build();
 app.UseCors("AllowAll");
 app.MapControllers();
+app.UseMiddleware<LoggingMiddleware>();
 app.Run();
