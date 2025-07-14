@@ -29,6 +29,39 @@ const MatchBrowser = () => {
         fetchData();
     }, []);
 
+    const renderMapScoreTable = (match) => {
+        const { mapPool } = match.matchDetails || {};
+        const scores = match.mapScores || [];
+        if (!mapPool) return null;
+
+        return (
+            <div className="map-score-table">
+                <h4>Map Schedule</h4>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Map</th>
+                        <th>{match.teams[0]}</th>
+                        <th>{match.teams[1]}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {mapPool.map((mapName, index) => {
+                        const mapScore = scores.find(s => s.map === mapName);
+                        return (
+                            <tr key={index}>
+                                <td>{mapName}</td>
+                                <td>{mapScore ? mapScore.score[match.teams[0]] : '-'}</td>
+                                <td>{mapScore ? mapScore.score[match.teams[1]] : '-'}</td>
+                            </tr>
+                        );
+                    })}
+                    </tbody>
+                </table>
+            </div>
+        );
+    };
+
     const renderMatchCard = (match) => (
         <motion.div
             key={match.id}
@@ -56,6 +89,7 @@ const MatchBrowser = () => {
                 </>
             )}
             <a href={match.streamUrl} target="_blank" rel="noreferrer" className="stream-link">Watch Stream</a>
+            {(match.status === 'live' || match.status === 'ended') && renderMapScoreTable(match)}
         </motion.div>
     );
 
