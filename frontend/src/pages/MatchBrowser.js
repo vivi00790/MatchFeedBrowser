@@ -30,9 +30,9 @@ const MatchBrowser = () => {
     }, []);
 
     const renderMapScoreTable = (match) => {
-        const { mapPool } = match.matchDetails || {};
+        const { mapPool, format } = match.matchDetails || {};
         const scores = match.mapScores || [];
-        if (!mapPool) return null;
+        if (!mapPool || format !== "Best of 3") return null;
 
         return (
             <div className="map-score-table">
